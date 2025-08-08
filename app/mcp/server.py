@@ -1,7 +1,6 @@
 import logging
 import sys
 
-
 logging.basicConfig(level=logging.INFO, handlers=[logging.StreamHandler(sys.stderr)])
 
 import argparse
@@ -17,8 +16,12 @@ from app.logger import logger
 from app.tool.base import BaseTool
 from app.tool.bash import Bash
 from app.tool.browser_use_tool import BrowserUseTool
+from app.tool.indicators import TechnicalIndicators
+from app.tool.newsapi_fetcher import EnhancedNewsFetcher, NewsAPIFetcher
+from app.tool.risk_tools import PositionSizer, RiskAnalyzer
 from app.tool.str_replace_editor import StrReplaceEditor
 from app.tool.terminate import Terminate
+from app.tool.yfinance_fetcher import YahooFinanceFetcher
 
 
 class MCPServer:
@@ -33,6 +36,14 @@ class MCPServer:
         self.tools["browser"] = BrowserUseTool()
         self.tools["editor"] = StrReplaceEditor()
         self.tools["terminate"] = Terminate()
+
+        # Initialize trading tools
+        self.tools["yfinance_fetcher"] = YahooFinanceFetcher()
+        self.tools["newsapi_fetcher"] = NewsAPIFetcher()
+        self.tools["enhanced_news_fetcher"] = EnhancedNewsFetcher()
+        self.tools["technical_indicators"] = TechnicalIndicators()
+        self.tools["position_sizer"] = PositionSizer()
+        self.tools["risk_analyzer"] = RiskAnalyzer()
 
     def register_tool(self, tool: BaseTool, method_name: Optional[str] = None) -> None:
         """Register a tool with parameter validation and documentation."""

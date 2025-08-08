@@ -75,7 +75,9 @@ class TechnicalIndicatorsResponse(ToolResult):
                 strength_desc = (
                     "Strong"
                     if signal.strength > 0.7
-                    else "Moderate" if signal.strength > 0.4 else "Weak"
+                    else "Moderate"
+                    if signal.strength > 0.4
+                    else "Weak"
                 )
                 output_lines.append(
                     f"  {signal.indicator}: {signal.signal} ({strength_desc})"
@@ -198,7 +200,7 @@ class TechnicalIndicators(BaseTool):
             lows = np.array(
                 [float(d.get("low", d.get("close", 0))) for d in price_data]
             )
-            volumes = np.array([float(d.get("volume", 0)) for d in price_data])
+            np.array([float(d.get("volume", 0)) for d in price_data])
 
             # Get analysis date
             analysis_date = (
@@ -393,7 +395,7 @@ class TechnicalIndicators(BaseTool):
         # Calculate signal line (9-period EMA of MACD)
         valid_macd = np.array([v for v in macd_values if not np.isnan(v)])
         if len(valid_macd) >= 9:
-            signal_ema = await self._calculate_ema(valid_macd, 9)
+            await self._calculate_ema(valid_macd, 9)
             latest_value = macd_values[-1] if not np.isnan(macd_values[-1]) else None
         else:
             latest_value = None

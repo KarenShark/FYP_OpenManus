@@ -1,7 +1,6 @@
 import asyncio
-import re
 from datetime import datetime, timedelta
-from typing import Any, Dict, List, Optional
+from typing import Any, List, Optional
 
 import requests
 from pydantic import BaseModel, Field
@@ -62,7 +61,9 @@ class NewsResponse(ToolResult):
                 sentiment = (
                     "Positive"
                     if article.sentiment_score > 0.1
-                    else "Negative" if article.sentiment_score < -0.1 else "Neutral"
+                    else "Negative"
+                    if article.sentiment_score < -0.1
+                    else "Neutral"
                 )
                 output_lines.append(
                     f"   Sentiment: {sentiment} ({article.sentiment_score:.2f})"

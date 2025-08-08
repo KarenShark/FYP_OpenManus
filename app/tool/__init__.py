@@ -13,6 +13,7 @@ from app.tool.tool_collection import ToolCollection
 from app.tool.web_search import WebSearch
 from app.tool.yfinance_fetcher import YahooFinanceFetcher
 
+
 __all__ = [
     "BaseTool",
     "Bash",

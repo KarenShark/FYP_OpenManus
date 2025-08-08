@@ -1,6 +1,6 @@
 import asyncio
 from datetime import datetime, timedelta
-from typing import Any, Dict, List, Optional
+from typing import Any, List, Optional
 
 import requests
 from pydantic import BaseModel, Field
@@ -176,7 +176,7 @@ class YahooFinanceFetcher(BaseTool):
                 )
 
             # Parse header and data rows
-            header = lines[0].split(",")
+            lines[0].split(",")
             data_rows = lines[1:]
 
             market_data = []
